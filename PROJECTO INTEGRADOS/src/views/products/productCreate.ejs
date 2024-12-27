@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/head") %>
+
+    <link rel="stylesheet" href="/css/productCreateEdit.css">
+    <title>Nuevo Articulo</title>
+</head>
+
+<body>
+
+    <%- include("../partials/header") %>
+
+    <main>
+        <section class="contenedor-formulario">
+            <h1 class="titulo">NUEVO ARTICULO</h1>  
+            
+            <% if (locals.errors) { %>
+                <% for (const property in errors) { %>
+                    <p class="error-message"><%= errors[property].msg %></p>
+                <% } %>
+            <% } %>
+
+            <form action="/producto" method="post" enctype="multipart/form-data" class="formulario">
+            
+            <div class="formulario__field">
+                <label for="name">Nombre del producto</label>
+                <input type="text" id="name" name="name" class="formulario__texto" required>
+                <small class="validation" id="valiname"></small>
+            </div>
+
+            <div class="formulario__field">    
+                <label for="description">Descripción</label>
+                <textarea id="description" name="description" class="formulario__textarea" required></textarea>
+                <small class="validation" id="validesc"></small>
+            </div>
+
+            <div class="formulario__field">
+                <label for="materials">Materiales</label>
+                <textarea name="materials" id="materials" class="formulario__textarea" placeholder="Algodon, seda, spandex..." required></textarea>
+            </div>
+
+            <div class="formulario__field">
+                <label for="care">Cuidados</label>
+                <textarea name="care" id="care" class="formulario__textarea" placeholder="Lavar a mano, lavar con agua fria..." required></textarea>
+            </div>
+
+            <div class="formulario__field">
+                <label for="category">Categoria</label>
+                <select name="category" id="category">
+                    <% categories.forEach(category => { %>
+                        <option value="<%= category.id %>"><%= category.name.toUpperCase()  %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <label>Colores</label> 
+            <section class="checkbox-flex">
+              
+              <% colors.forEach(color => { %>
+                <div class="formulario__field">
+                  <input class="formulario__checkbox" type="checkbox" name="colors" id=<%= color.name %> value=<%= color.id %>>
+                  <label class="formulario__label" for=<%= color.name %>><%= color.name.toUpperCase() %></label>
+                </div>
+              <% }) %>
+            </section> 
+
+            <div class="formulario__field">
+                <label for="image">Imagen</label>
+                <input type="file" id="image" name="image" class="formulario__imagenes" accept=".jpg,.png,.jpeg,.gif" required>
+                <small class="validation" id="valiimg"></small>
+            </div>
+
+            <label>Talles</label> 
+            <section class="checkbox-flex">
+              
+                <% sizes.forEach(size => { %>
+                  <div class="formulario__field">
+                    <input class="formulario__checkbox" type="checkbox" name="sizes" id=<%= size.name %> value=<%= size.id %>>
+                    <label class="formulario__label" for=<%= size.name %>><%= size.name.toUpperCase() %></label>
+                  </div>
+                <% }) %>
+              </section> 
+              
+            <div class="formulario__field">
+                <label for="price">Precio</label>
+                <input type="number" id="price" name="price" class="formulario__precio" step="50" min="0" required>
+            </div>
+
+            <div class="formulario__field">
+                <label for="discount">Descuento</label>
+                <input type="number" id="discount" name="discount" class="formulario__precio" step="1" min="0" required>
+            </div>
+
+            <!-- <div class="formulario__field">
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" class="formulario__precio" step="1" min="0" required>
+            </div> -->
+
+            <div class="formulario__field">
+                <label for="product_id">Codigo de producto</label>
+                <input type="text" id="product_id" name="product_id" class="formulario__precio" required>
+            </div>
+
+            <div class="formulario__field">
+                <input class="formulario__checkbox" type="checkbox" name="visibility" id="visibility" checked>
+                <label class="formulario__label" for="visibility">Hacer publico</label>
+            </div>
+
+            <div class="formulario__field">
+                <input class="formulario__checkbox" type="checkbox" name="new_release" id="new_release" checked>
+                <label class="formulario__label" for="new_release">Ultimo lanzamiento</label>
+                <input class="formulario__checkbox" type="checkbox" name="on_sale" id="on_sale">
+                <label class="formulario__label" for="on_sale">On sale</label>
+            </div>
+            
+            <button class="formulario__boton" type="submit">Crear</button>
+            </form>
+        </section>
+    </main>
+
+    <%- include("../partials/footer") %>
+
+    <script src="/scripts/validationProduct.js"></script>
+
+</body>
+
+</html>
+    

@@ -1,13 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-// const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-// const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-// let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 const productService = require('../data/productService')
 
 const controller = {
@@ -34,8 +29,6 @@ const controller = {
 	
 	// Create -  Method to store
 	store: (req, res) => {
-		console.log(req.file);
-		
 		productService.save(req.body, req.file);
 		res.redirect('/products');
 	},
